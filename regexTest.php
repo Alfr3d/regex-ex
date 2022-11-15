@@ -74,3 +74,44 @@ function phoneNumberValidationV2(array $phoneNumbers): array
 
     return phoneNumberValidation($result);
 }
+
+/*
+ * 4. Parašykite funkciją, kuri užmaskuotų dalį vartotojo duomenų. Pavardės ir gimimo metų simboliai
+ *turėtų būti pakeisti i simbolius 'X'.
+ *"John Doe Smith, 1979 05 15" --> "John XXXXX, XXXX 05 15"
+ */
+
+function hideUserInfo(string $userInfo): string
+{
+    $userInfoArray = explode(' ', $userInfo);
+
+    foreach ($userInfoArray as $key => $userInfoValue) {
+        if (strpos($userInfoValue, ',')) {
+            $userInfoArray[$key] = preg_replace('/[a-zA-Z]/', 'X', $userInfoValue);
+        }
+
+        if (is_numeric($userInfoValue) && strlen($userInfoValue) === 4) {
+            $userInfoArray[$key] = preg_replace('/[0-9]/', 'X', $userInfoValue);
+        }
+    }
+
+    return implode(' ', $userInfoArray);
+}
+
+
+function hideUserInfoV2(string $userInfo): string
+{
+    $userInfoArray = explode(' ', $userInfo);
+
+    foreach ($userInfoArray as $key => $userInfoValue) {
+        if (strpos($userInfoValue, ',')) {
+            $userInfoValue = preg_replace('/[a-zA-Z]/', 'X', $userInfoValue); //XXXX,
+        }
+
+        $userInfoArray[$key] = preg_replace('/[0-9]{4}/', 'XXXX', $userInfoValue);
+    }
+
+    return implode(' ', $userInfoArray);
+}
+
+echo hideUserInfo("John Doe Smith, 1979 05 15");
