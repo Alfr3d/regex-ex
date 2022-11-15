@@ -105,7 +105,7 @@ function hideUserInfoV2(string $userInfo): string
 
     foreach ($userInfoArray as $key => $userInfoValue) {
         if (strpos($userInfoValue, ',')) {
-            $userInfoValue = preg_replace('/[a-zA-Z]/', 'X', $userInfoValue); //XXXX,
+            $userInfoValue = preg_replace('/[a-zA-Z]/', 'X', $userInfoValue);
         }
 
         $userInfoArray[$key] = preg_replace('/[0-9]{4}/', 'XXXX', $userInfoValue);
